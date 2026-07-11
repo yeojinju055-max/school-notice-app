@@ -1,0 +1,642 @@
+/* =========================================================
+   몽글알림장 — 디자인 토큰
+   컬러: 라벤더 배경 / 인디고 포인트 / 민트·피치 서브 포인트
+   타이포: Jua(제목, 손글씨 느낌) + Gowun Dodum(본문)
+   시그니처: 화면 뒤로 흐릿하게 떠 있는 구름 블롭
+   ========================================================= */
+
+:root {
+    --bg: #F4F1FD;
+    --surface: #FFFFFF;
+    --ink: #3A3552;
+    --ink-soft: #756E93;
+    --primary: #7C6FE0;
+    --primary-soft: #ECE8FF;
+    --accent-mint: #7FDBB6;
+    --accent-mint-soft: #E3FBF1;
+    --accent-peach: #FFB199;
+    --accent-peach-soft: #FFEDE7;
+    --danger: #FF8B94;
+    --danger-soft: #FFE7E9;
+    --radius-lg: 26px;
+    --radius-md: 18px;
+    --radius-sm: 12px;
+    --shadow: 0 8px 24px rgba(124, 111, 224, 0.12);
+    --shadow-sm: 0 4px 12px rgba(124, 111, 224, 0.10);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Gowun Dodum", "Malgun Gothic", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* ---------- 배경 구름 블롭 (시그니처 요소) ---------- */
+
+.bg-blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: 0.55;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.blob-1 {
+    width: 380px;
+    height: 380px;
+    top: -140px;
+    right: -100px;
+    background: radial-gradient(circle at 30% 30%, var(--primary-soft), transparent 70%);
+}
+
+.blob-2 {
+    width: 320px;
+    height: 320px;
+    bottom: -120px;
+    left: -100px;
+    background: radial-gradient(circle at 60% 40%, var(--accent-mint-soft), transparent 70%);
+}
+
+.blob-3 {
+    width: 240px;
+    height: 240px;
+    top: 40%;
+    right: -120px;
+    background: radial-gradient(circle at 50% 50%, var(--accent-peach-soft), transparent 70%);
+}
+
+/* ---------- 상단 바 ---------- */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+}
+
+.topbar .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--ink);
+}
+
+.logo-mark {
+    font-size: 1.4rem;
+}
+
+.logo-text {
+    font-family: "Jua", "Malgun Gothic", sans-serif;
+    font-size: 1.3rem;
+    color: var(--primary);
+    letter-spacing: 0.5px;
+}
+
+.topbar nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.topbar nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.88rem;
+    padding: 8px 14px;
+    border-radius: 999px;
+    transition: background 0.15s ease;
+}
+
+.topbar nav a:hover {
+    background: var(--primary-soft);
+    color: var(--primary);
+}
+
+.topbar nav a.cta-link {
+    background: var(--primary);
+    color: white;
+}
+
+.topbar nav a.cta-link:hover {
+    background: var(--primary);
+    opacity: 0.9;
+}
+
+.topbar .username {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    padding: 0 6px;
+}
+
+/* ---------- 레이아웃 ---------- */
+
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 12px 20px 80px;
+    position: relative;
+}
+
+.page-title {
+    font-family: "Jua", sans-serif;
+    font-size: 1.4rem;
+    color: var(--ink);
+    margin: 8px 0 20px;
+}
+
+/* ---------- 알림 메시지 ---------- */
+
+.flashes {
+    list-style: none;
+    padding: 12px 18px;
+    margin: 0 0 18px;
+    background: var(--accent-peach-soft);
+    border-radius: var(--radius-sm);
+    color: #B85C3E;
+}
+
+.flashes li { font-size: 0.88rem; }
+
+/* ---------- 검색 / 글쓰기 바 ---------- */
+
+.write-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 14px;
+}
+
+.write-bar a {
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.search-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    font-family: inherit;
+}
+
+.search-bar input:focus {
+    outline: 2px solid var(--primary);
+}
+
+.search-bar button {
+    padding: 10px 22px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.category-filter {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+}
+
+.category-filter a {
+    padding: 7px 16px;
+    border-radius: 999px;
+    background: var(--surface);
+    text-decoration: none;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    box-shadow: var(--shadow-sm);
+}
+
+.category-filter a.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* ---------- 공지 목록 ---------- */
+
+.notice-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.notice-list a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface);
+    padding: 16px 18px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--ink);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.notice-list a:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.category-tag {
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.notice-list .title {
+    flex: 1;
+    font-size: 0.95rem;
+}
+
+.notice-list .date {
+    font-size: 0.72rem;
+    color: #B4ADCB;
+    white-space: nowrap;
+}
+
+.due-date {
+    font-size: 0.72rem;
+    color: #C2760B;
+    background: var(--accent-peach-soft);
+    padding: 3px 10px;
+    border-radius: 999px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.empty {
+    text-align: center;
+    color: var(--ink-soft);
+    margin-top: 50px;
+    font-size: 0.9rem;
+}
+
+/* ---------- 상세 페이지 ---------- */
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.88rem;
+}
+
+.notice-detail {
+    background: var(--surface);
+    padding: 28px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+}
+
+.notice-detail h1 {
+    font-family: "Jua", sans-serif;
+    margin: 12px 0 6px;
+    font-size: 1.35rem;
+    font-weight: normal;
+}
+
+.notice-detail .author {
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+}
+
+.notice-detail .content {
+    line-height: 1.8;
+    white-space: pre-wrap;
+}
+
+.detail-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.detail-actions a,
+.detail-actions button {
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    text-decoration: none;
+    border: none;
+    background: var(--primary-soft);
+    color: var(--primary);
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.detail-actions .danger {
+    color: #D2495B;
+    background: var(--danger-soft);
+}
+
+/* ---------- 로그인 / 회원가입 / 폼 ---------- */
+
+.auth-form {
+    background: var(--surface);
+    padding: 32px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 380px;
+    margin: 30px auto 0;
+}
+
+.auth-form h1 {
+    font-family: "Jua", sans-serif;
+    font-size: 1.3rem;
+    font-weight: normal;
+    margin: 0 0 6px;
+    text-align: center;
+    color: var(--primary);
+}
+
+.auth-form label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.85rem;
+    gap: 6px;
+    color: var(--ink-soft);
+}
+
+.auth-form input,
+.auth-form textarea {
+    padding: 12px 14px;
+    border: none;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.auth-form input:focus,
+.auth-form textarea:focus {
+    outline: 2px solid var(--primary);
+}
+
+.auth-form button {
+    padding: 13px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-top: 4px;
+    box-shadow: var(--shadow-sm);
+}
+
+.switch-link {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+}
+
+.switch-link a {
+    color: var(--primary);
+}
+
+.notice-form {
+    max-width: 480px;
+}
+
+.checkbox-row {
+    flex-direction: row !important;
+    align-items: center;
+    gap: 8px !important;
+}
+
+.checkbox-row input {
+    width: auto;
+}
+
+.teacher-fields {
+    flex-direction: column;
+    gap: 14px;
+    border-left: 3px solid var(--primary-soft);
+    padding-left: 12px;
+}
+
+/* ---------- 선생님 목록 / 개인 페이지 ---------- */
+
+.teacher-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.teacher-list a {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: var(--surface);
+    padding: 16px 18px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--ink);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.12s ease;
+}
+
+.teacher-list a:hover {
+    transform: translateY(-2px);
+}
+
+.teacher-name {
+    font-family: "Jua", sans-serif;
+    font-size: 1.02rem;
+}
+
+.teacher-subject {
+    font-size: 0.8rem;
+    color: var(--primary);
+}
+
+.teacher-bio {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+}
+
+.teacher-header {
+    background: var(--surface);
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+}
+
+.teacher-header h1 {
+    font-family: "Jua", sans-serif;
+    font-weight: normal;
+    margin: 0 0 8px;
+    font-size: 1.3rem;
+    color: var(--primary);
+}
+
+.teacher-header .teacher-subject {
+    margin: 0 0 4px;
+}
+
+.teacher-header .teacher-bio {
+    margin: 0;
+}
+
+.teacher-section {
+    margin-bottom: 30px;
+}
+
+.teacher-section h2 {
+    font-family: "Jua", sans-serif;
+    font-weight: normal;
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+    color: var(--ink);
+}
+
+.question-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+    background: var(--surface);
+    padding: 16px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.question-form textarea,
+.answer-form textarea {
+    padding: 12px 14px;
+    border: none;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    resize: vertical;
+}
+
+.question-form textarea:focus,
+.answer-form textarea:focus {
+    outline: 2px solid var(--primary);
+}
+
+.question-form button,
+.answer-form button {
+    align-self: flex-end;
+    padding: 9px 18px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.question-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.question-item {
+    background: var(--surface);
+    padding: 16px 18px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.q-meta {
+    font-size: 0.72rem;
+    color: #B4ADCB;
+    margin: 0 0 6px;
+}
+
+.q-content {
+    margin: 0 0 8px;
+}
+
+.q-answer {
+    background: var(--accent-mint-soft);
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    margin-top: 8px;
+}
+
+.q-answer-label {
+    font-size: 0.72rem;
+    color: #2F9E75;
+    font-weight: bold;
+    margin: 0 0 4px;
+}
+
+.q-waiting {
+    font-size: 0.8rem;
+    color: #B4ADCB;
+    margin: 0;
+}
+
+.answer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+/* ---------- 접근성: 키보드 포커스 ---------- */
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* ---------- 모바일 대응 ---------- */
+
+@media (max-width: 480px) {
+    .topbar { padding: 14px 16px; }
+    .container { padding: 8px 14px 70px; }
+    .logo-text { font-size: 1.1rem; }
+    .auth-form { padding: 24px; margin-top: 12px; }
+    .notice-detail { padding: 20px; }
+}

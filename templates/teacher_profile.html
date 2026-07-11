@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}{{ teacher['username'] }} 선생님{% endblock %}
+
+{% block content %}
+    <a class="back-link" href="{{ url_for('teacher_list') }}">← 선생님 목록으로</a>
+
+    <section class="teacher-header">
+        <h1>{{ teacher['username'] }} 선생님</h1>
+        {% if teacher['subject'] %}
+            <p class="teacher-subject">담당 과목: {{ teacher['subject'] }}</p>
+        {% endif %}
+        {% if teacher['bio'] %}
+            <p class="teacher-bio">{{ teacher['bio'] }}</p>
+        {% endif %}
+    </section>
+
+    <section class="teacher-section">
+        <h2>올린 공지</h2>
+        {% if notices %}
+            <ul class="notice-list">
+                {% for notice in notices %}
+                    <li>
+                        <a href="{{ url_for('notice_detail', notice_id=notice['id']) }}">
+                            <span class="category-tag">{{ notice['category'] }}</span>
+                            <span class="title">{{ notice['title'] }}</span>
+                            {% if notice['due_date'] %}
+                                <span class="due-date">마감 {{ notice['due_date'] }}</span>
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty">아직 올린 공지가 없습니다.</p>
+        {% endif %}
+    </section>
+
+    <section class="teacher-section">
+        <h2>질문 게시판</h2>
+
+        <form class="question-form" method="post" action="{{ url_for('teacher_profile', teacher_id=teacher['id']) }}">
+            <textarea name="content" rows="3" placeholder="궁금한 점을 남겨보세요" required></textarea>
+            <button type="submit">질문 남기기</button>
+        </form>
+
+        {% if questions %}
+            <ul class="question-list">
+                {% for q in questions %}
+                    <li class="question-item">
+                        <p class="q-meta">{{ q['student_name'] }} · {{ q['created_at'] }}</p>
+                        <p class="q-content">{{ q['content'] }}</p>
+
+                        {% if q['answer'] %}
+                            <div class="q-answer">
+                                <p class="q-answer-label">선생님 답변</p>
+                                <p>{{ q['answer'] }}</p>
+                            </div>
+                        {% elif is_owner %}
+                            <form
+                                class="answer-form"
+                                method="post"
+                                action="{{ url_for('question_answer', teacher_id=teacher['id'], question_id=q['id']) }}"
+                            >
+                                <textarea name="answer" rows="2" placeholder="답변을 입력하세요" required></textarea>
+                                <button type="submit">답변 등록</button>
+                            </form>
+                        {% else %}
+                            <p class="q-waiting">아직 답변이 없습니다.</p>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty">아직 등록된 질문이 없습니다.</p>
+        {% endif %}
+    </section>
+{% endblock %}

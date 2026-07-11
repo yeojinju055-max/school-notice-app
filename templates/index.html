@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}공지 목록{% endblock %}
+
+{% block content %}
+    <div class="write-bar">
+        <a href="{{ url_for('notice_new') }}">+ 새 공지 등록</a>
+    </div>
+
+    <form class="search-bar" method="get" action="{{ url_for('index') }}">
+        <input
+            type="text"
+            name="q"
+            placeholder="제목이나 내용으로 검색"
+            value="{{ query }}"
+        >
+        <button type="submit">검색</button>
+    </form>
+
+    <div class="category-filter">
+        <a
+            href="{{ url_for('index', q=query) }}"
+            class="{{ 'active' if not selected_category else '' }}"
+        >전체</a>
+        {% for c in categories %}
+            <a
+                href="{{ url_for('index', q=query, category=c) }}"
+                class="{{ 'active' if selected_category == c else '' }}"
+            >{{ c }}</a>
+        {% endfor %}
+    </div>
+
+    {% if notices %}
+        <ul class="notice-list">
+            {% for notice in notices %}
+                <li>
+                    <a href="{{ url_for('notice_detail', notice_id=notice['id']) }}">
+                        <span class="category-tag">{{ notice['category'] }}</span>
+                        <span class="title">{{ notice['title'] }}</span>
+                        {% if notice['due_date'] %}
+                            <span class="due-date">마감 {{ notice['due_date'] }}</span>
+                        {% endif %}
+                        <span class="date">{{ notice['created_at'] }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="empty">조건에 맞는 공지가 없습니다.</p>
+    {% endif %}
+{% endblock %}

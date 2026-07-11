@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}로그인{% endblock %}
+
+{% block content %}
+    <form class="auth-form" method="post" action="{{ url_for('login') }}">
+        <h1>로그인</h1>
+        <label>
+            아이디
+            <input type="text" name="username" required>
+        </label>
+        <label>
+            비밀번호
+            <input type="password" name="password" required>
+        </label>
+        <button type="submit">로그인</button>
+        <p class="switch-link">
+            계정이 없으신가요? <a href="{{ url_for('register') }}">회원가입</a>
+        </p>
+    </form>
+{% endblock %}

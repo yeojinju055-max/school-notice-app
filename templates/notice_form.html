@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}{% if notice %}공지 수정{% else %}공지 등록{% endif %}{% endblock %}
+
+{% block content %}
+    <a class="back-link" href="{{ url_for('index') }}">← 목록으로</a>
+
+    <form class="auth-form notice-form" method="post">
+        <h1>{% if notice %}공지 수정{% else %}새 공지 등록{% endif %}</h1>
+
+        <label>
+            분류
+            <input
+                type="text"
+                name="category"
+                placeholder="예: 학사, 행사, 생활"
+                value="{{ notice['category'] if notice else '' }}"
+                required
+            >
+        </label>
+
+        <label>
+            제목
+            <input
+                type="text"
+                name="title"
+                value="{{ notice['title'] if notice else '' }}"
+                required
+            >
+        </label>
+
+        <label>
+            마감일 (선택, 수행평가 등에 사용)
+            <input
+                type="date"
+                name="due_date"
+                value="{{ notice['due_date'] if notice and notice['due_date'] else '' }}"
+            >
+        </label>
+
+        <label>
+            내용
+            <textarea name="content" rows="8" required>{{ notice['content'] if notice else '' }}</textarea>
+        </label>
+
+        <button type="submit">{% if notice %}수정 완료{% else %}등록하기{% endif %}</button>
+    </form>
+{% endblock %}

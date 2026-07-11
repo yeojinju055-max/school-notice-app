@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}{{ notice['title'] }}{% endblock %}
+
+{% block content %}
+    <a class="back-link" href="{{ url_for('index') }}">← 목록으로</a>
+
+    <article class="notice-detail">
+        <span class="category-tag">{{ notice['category'] }}</span>
+        <h1>{{ notice['title'] }}</h1>
+        <p class="author">
+            {{ notice['author_name'] or '알 수 없음' }} · {{ notice['created_at'] }}
+            {% if notice['due_date'] %}
+                · <strong>마감일 {{ notice['due_date'] }}</strong>
+            {% endif %}
+        </p>
+        <p class="content">{{ notice['content'] }}</p>
+
+        {% if is_author %}
+            <div class="detail-actions">
+                <a href="{{ url_for('notice_edit', notice_id=notice['id']) }}">수정</a>
+                <form
+                    method="post"
+                    action="{{ url_for('notice_delete', notice_id=notice['id']) }}"
+                    onsubmit="return confirm('정말 삭제하시겠습니까?');"
+                >
+                    <button type="submit" class="danger">삭제</button>
+                </form>
+            </div>
+        {% endif %}
+    </article>
+{% endblock %}
