@@ -100,6 +100,7 @@ def init_db():
 
 
 # ---------- 로그인 여부를 확인하는 데코레이터 ----------
+init_db()
 
 def login_required(view_func):
     """
