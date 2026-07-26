@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}선생님 목록{% endblock %}
+
+{% block content %}
+    <h1 class="page-title">선생님 목록</h1>
+
+    {% if teachers %}
+        <ul class="teacher-list">
+            {% for t in teachers %}
+                <li>
+                    <a href="{{ url_for('teacher_profile', teacher_id=t['id']) }}">
+                        <span class="teacher-name">{{ t['username'] }}</span>
+                        {% if t['subject'] %}<span class="teacher-subject">{{ t['subject'] }}</span>{% endif %}
+                        {% if t['bio'] %}<span class="teacher-bio">{{ t['bio'] }}</span>{% endif %}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="empty">아직 등록된 선생님이 없습니다.</p>
+    {% endif %}
+{% endblock %}
